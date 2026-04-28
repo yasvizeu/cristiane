@@ -4,37 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>YV English · Cristiane</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">YV <span>English</span></div>
+<header class="hero">
+  <div class="hero-top">
+    <!-- ✏️ TROQUE A LOGO AQUI -->
+    <img src="logo-yv.png" alt="YV English" class="logo-img">
+
+    <div class="student-pill">
+      <span class="student-icon">♡</span>
+      Cristiane
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="eyebrow">Sua área pessoal</p>
+    <h1>Hello, Cristiane ✨</h1>
+    <p>
+      Aqui você encontra seus materiais da semana:<br>
+      PDFs, áudios e atividades para praticar antes da aula.
+    </p>
+    <span class="small-line"></span>
+  </div>
+
+  <div class="hero-watermark">YV</div>
+  <div class="hero-curve"></div>
 </header>
 
-<section class="hero">
-  <p class="greeting">Sua área pessoal</p>
-  <!-- ✏️ TROQUE O NOME AQUI -->
-  <h1>Hello, Cristiane ✨</h1>
-  <p class="subtitle">Aqui estão os materiais das suas aulas. Clique na semana para ver seus exercícios, áudios e links.</p>
-</section>
+<main>
+  <div class="section-title">
+    <span></span>
+    <p>Semanas</p>
+    <span></span>
+  </div>
 
-<div class="divider"><span class="divider-label">Semanas</span></div>
+  <section class="weeks-grid" id="weeksGrid"></section>
+</main>
 
-<div class="weeks-grid" id="weeksGrid">
-  <!-- As semanas são geradas pelo JS abaixo. Edite o array WEEKS. -->
-</div>
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
 
-<div class="overlay" id="overlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      <p class="modal-week-label" id="modalWeekLabel"></p>
-      <h2 class="modal-title" id="modalTitle"></h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
+    <aside class="modal-side">
+      <p id="modalWeekLabel"></p>
+      <h2 id="modalTitle"></h2>
+      <span class="small-line"></span>
+
+      <div class="focus-box">
+        <strong>Foco da semana</strong>
+        <p id="modalFocus"></p>
+      </div>
+
+      <span class="heart">♡</span>
+    </aside>
+
+    <section class="modal-content" id="modalBody"></section>
   </div>
 </div>
 

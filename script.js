@@ -1,206 +1,277 @@
 // ============================================================
-//  ✏️  EDITE AQUI — DADOS DA ALUNA
+// ✏️ EDITE AQUI — DADOS DA ALUNA
+// ============================================================
+
+const STUDENT_NAME = "Cristiane";
+
+// WhatsApp opcional para botão/link futuro
+// Exemplo: "5521999999999"
+const WHATSAPP_NUMBER = "";
+
+// ============================================================
+// ✏️ EDITE AQUI — SEMANAS DA ALUNA
+// Cristiane tem apenas 2 semanas agora.
+// Para adicionar uma semana nova, copie um bloco inteiro { ... }
+// e cole depois da semana 2, separando com vírgula.
 // ============================================================
 
 const WEEKS = [
-
   {
     number: 1,
-    title: "To Be",        // título da semana
+    title: "To Be",
+    focus: "Aprender a estrutura de frases de ser/estar na afirmativa. Não se preocupe com perfeição — ouse falar!",
+
+    // ✏️ ADICIONE PDFS AQUI
+    pdfs: [
+      { label: "To Be – Semana 1", url: "semana1.pdf" }
+    ],
+
+    // ✏️ ADICIONE EXERCÍCIOS AQUI
     exercises: [
       "Pratique os exercícios do PDF abaixo",
-      "Escreva 3 frases apresentando você em inglês no seu caderno",
+      "Escreva 3 frases apresentando você em inglês no seu caderno"
     ],
-    pdfs: [
-      // url pode ser caminho local (ex: "semana1.pdf") ou link do Google Drive / Dropbox
-      { label: "To Be – Semana 1", url: "semana1.pdf" },
-    ],
+
+    // ✏️ ADICIONE ÁUDIOS AQUI
     audios: [
-      // { label: "Texto descritivo", url: "https://link-do-audio.mp3" }
-      { label: "Ouça: Pronúncia de 'th' (arquivo enviado no WhatsApp)", url: "" },
+      // Quando tiver arquivo:
+      // { label: "Prática de pronúncia", url: "audio-semana1.mp3" }
+
+      // Quando o áudio for enviado pelo WhatsApp:
+      { label: "Pronúncia de 'th' — enviado pelo WhatsApp", url: "" }
     ],
+
+    // ✏️ ADICIONE LINKS AQUI
     links: [
-      { label: "BBC Learning English – greetings", url: "https://www.bbc.co.uk/learningenglish" },
+      { label: "BBC Learning English – greetings", url: "https://www.bbc.co.uk/learningenglish" }
     ],
-    videos: [
-      // { label: "Nome do vídeo", url: "https://youtube.com/..." }
-    ],
-    yasNote: "Foco desta semana: aprender a estrutura de frases de ser/estar na afirmativa. Não se preocupe com perfeição, ouse falar! 💛",
+
+    // ✏️ ADICIONE VÍDEOS AQUI
+    videos: []
   },
 
   {
     number: 2,
     title: "Daily Routines",
-    exercises: [
-      "Complete os exercícios 1 e 2 do PDF Semana 2",
-      "Grave um áudio de 30 segundos descrevendo sua manhã em inglês",
-    ],
+    focus: "Praticar frases simples sobre rotina e começar a falar pequenas informações do dia a dia.",
+
     pdfs: [
-      // { label: "Nome do PDF", url: "semana2.pdf" },
+      // { label: "Daily Routines – Semana 2", url: "semana2.pdf" }
     ],
+
+    exercises: [
+      "Complete os exercícios da Semana 2 no caderno",
+      "Grave um áudio curto falando 3 frases sobre sua rotina"
+    ],
+
     audios: [
-      { label: "Modelo de rotina (enviado no WhatsApp)", url: "" },
+      { label: "Modelo de rotina — enviado pelo WhatsApp", url: "" }
     ],
-    links: [
-      { label: "Quiz: Simple Present – British Council", url: "https://learnenglish.britishcouncil.org/grammar/english-grammar-reference/present-simple" },
-    ],
-    videos: [],
-    yasNote: "Tente usar pelo menos 5 verbos diferentes ao descrever sua rotina.",
-  },
 
-  // ── ADICIONE MAIS SEMANAS AQUI ──
-  // Basta copiar um bloco { number, title, exercises, audios, links, videos, yasNote }
-  // e colar abaixo, separado por vírgula.
+    links: [],
 
+    videos: []
+  }
+
+  // ============================================================
+  // ✏️ PARA ADICIONAR SEMANA 3:
+  // Copie este modelo abaixo e cole antes do fechamento do array.
+  //
+  // ,
+  // {
+  //   number: 3,
+  //   title: "Family",
+  //   focus: "Praticar vocabulário de família e frases com he/she/they.",
+  //   pdfs: [
+  //     { label: "Family – Semana 3", url: "semana3.pdf" }
+  //   ],
+  //   exercises: [
+  //     "Traduza as frases do PDF",
+  //     "Grave 3 frases falando sobre sua família"
+  //   ],
+  //   audios: [],
+  //   links: [],
+  //   videos: []
+  // }
+  // ============================================================
 ];
 
 // ============================================================
-//  ⬇️  A PARTIR DAQUI NÃO PRECISA MEXER
+// ⬇️ A PARTIR DAQUI NÃO PRECISA MEXER
 // ============================================================
 
-function buildTag(type) {
-  const map = {
-    exercise: ['tag-exercise', '📝 Exercícios'],
-    audio:    ['tag-audio',    '🎧 Áudios'],
-    link:     ['tag-link',     '🔗 Links'],
-    video:    ['tag-video',    '▶️ Vídeos'],
-    pdf:      ['tag-pdf',      '📄 PDFs'],
-  };
-  const [cls, label] = map[type];
-  return `<span class="tag ${cls}">${label}</span>`;
+const iconMap = {
+  pdf: "▣",
+  audio: "◖",
+  exercise: "✎",
+  link: "⌁",
+  video: "▷"
+};
+
+function hasItems(arr) {
+  return Array.isArray(arr) && arr.length > 0;
 }
 
 function renderGrid() {
-  const grid = document.getElementById('weeksGrid');
-  grid.innerHTML = WEEKS.map(w => {
-    const tags = [
-      w.exercises?.length ? buildTag('exercise') : '',
-      w.pdfs?.filter(p=>p.label).length ? buildTag('pdf') : '',
-      w.audios?.filter(a=>a.label).length ? buildTag('audio') : '',
-      w.links?.length ? buildTag('link') : '',
-      w.videos?.length ? buildTag('video') : '',
-    ].filter(Boolean).join('');
+  const grid = document.getElementById("weeksGrid");
+
+  grid.innerHTML = WEEKS.map((week, index) => {
+    const icons = `
+      ${hasItems(week.pdfs) ? `<span class="resource-icon pdf">${iconMap.pdf}</span>` : ""}
+      ${hasItems(week.audios) ? `<span class="resource-icon audio">${iconMap.audio}</span>` : ""}
+      ${hasItems(week.exercises) ? `<span class="resource-icon exercise">${iconMap.exercise}</span>` : ""}
+      ${hasItems(week.links) ? `<span class="resource-icon link">${iconMap.link}</span>` : ""}
+      ${hasItems(week.videos) ? `<span class="resource-icon video">${iconMap.video}</span>` : ""}
+    `;
 
     return `
-      <div class="week-card" onclick="openModal(${w.number - 1})">
-        <div class="week-header">
-          <p class="week-number">Semana ${w.number}</p>
-          <p class="week-title">${w.title}</p>
+      <article class="week-card" onclick="openModal(${index})">
+        <div class="week-head">
+          <p class="week-number">Semana ${week.number}</p>
+          <h2 class="week-title">${week.title}</h2>
         </div>
+
         <div class="week-body">
-          <div class="week-tags">${tags}</div>
-          <p class="week-arrow">Ver material →</p>
+          <div class="icon-row">${icons}</div>
+          <p class="open-week">Abrir semana →</p>
         </div>
-      </div>`;
-  }).join('');
+      </article>
+    `;
+  }).join("");
 }
 
 function openModal(index) {
-  const w = WEEKS[index];
-  document.getElementById('modalWeekLabel').textContent = `Semana ${w.number}`;
-  document.getElementById('modalTitle').textContent = w.title;
+  const week = WEEKS[index];
 
-  let html = '';
+  document.getElementById("modalWeekLabel").textContent = `Semana ${week.number}`;
+  document.getElementById("modalTitle").textContent = week.title;
+  document.getElementById("modalFocus").textContent = week.focus;
 
-  if (w.pdfs?.filter(p=>p.label).length) {
-    html += `<p class="section-label">📄 PDFs</p><ul class="item-list">`;
-    w.pdfs.filter(p=>p.label).forEach((p, i) => {
-      const id = `pdf-${Date.now()}-${i}`;
-      html += `
-        <li class="pdf-item" onclick="togglePdf('${id}', '${p.url}')">
-          <span class="item-icon">📄</span>
-          <span class="item-text" style="flex:1">${p.label}</span>
-          <span style="font-size:.8rem;color:var(--plum-mid);font-weight:500">Abrir ▾</span>
-        </li>
-        <div class="pdf-viewer-wrap" id="${id}">
-          <div class="pdf-toolbar">
-            <span>${p.label}</span>
-            <a href="${p.url}" target="_blank" download>⬇ Baixar</a>
+  const body = document.getElementById("modalBody");
+  body.innerHTML = `
+    ${renderPdfs(week.pdfs)}
+    ${renderExercises(week.exercises)}
+    ${renderAudios(week.audios)}
+    ${renderLinks(week.links)}
+    ${renderVideos(week.videos)}
+
+    <div class="yas-tip">
+      ✨ <strong>Dica da YV:</strong> Pratique todos os dias um pouco. Consistência é o que te leva à fluência.
+    </div>
+  `;
+
+  document.getElementById("overlay").classList.add("open");
+}
+
+function renderPdfs(pdfs) {
+  if (!hasItems(pdfs)) return "";
+
+  return `
+    <div class="resource-section">
+      <h3>${iconMap.pdf} PDFs</h3>
+      <div class="resource-list">
+        ${pdfs.map(pdf => `
+          <div class="resource-item">
+            <span>${pdf.label}</span>
+            <div>
+              <a href="${pdf.url}" target="_blank">Visualizar</a>
+              <a href="${pdf.url}" download class="download-btn">Baixar</a>
+            </div>
           </div>
-          <iframe src="" data-src="${p.url}" title="${p.label}"></iframe>
-        </div>`;
-    });
-    html += `</ul>`;
-  }
-
-  if (w.exercises?.length) {
-    html += `<p class="section-label">📝 Exercícios</p><ul class="item-list">`;
-    w.exercises.forEach(e => {
-      html += `<li><span class="item-icon">✏️</span><span class="item-text">${e}</span></li>`;
-    });
-    html += `</ul>`;
-  }
-
-  if (w.audios?.filter(a=>a.label).length) {
-    html += '<p class="section-label">🎧 Áudios</p><ul class="item-list">';
-    w.audios.filter(a=>a.label).forEach(a => {
-      if (a.url) {
-        html += '<li class="audio-item">'
-          + '<div class="audio-item-top"><span class="item-icon">🎵</span>'
-          + '<span class="item-text" style="font-weight:500">' + a.label + '</span></div>'
-          + '<audio class="audio-player" controls preload="none">'
-          + '<source src="' + a.url + '">Seu navegador não suporta áudio.</audio>'
-          + '</li>';
-      } else {
-        html += '<li>'
-          + '<span class="item-icon">🎵</span>'
-          + '<span class="item-text"><span style="font-weight:500">' + a.label + '</span>'
-          + '<span class="audio-no-link"> — enviado pelo WhatsApp</span></span>'
-          + '</li>';
-      }
-    });
-    html += '</ul>';
-  }
-
-  if (w.links?.length) {
-    html += `<p class="section-label">🔗 Links</p><ul class="item-list">`;
-    w.links.forEach(l => {
-      html += `<li><span class="item-icon">🌐</span><span class="item-text"><a href="${l.url}" target="_blank">${l.label}</a></span></li>`;
-    });
-    html += `</ul>`;
-  }
-
-  if (w.videos?.length) {
-    html += `<p class="section-label">▶️ Vídeos</p><ul class="item-list">`;
-    w.videos.forEach(v => {
-      html += `<li><span class="item-icon">🎬</span><span class="item-text"><a href="${v.url}" target="_blank">${v.label}</a></span></li>`;
-    });
-    html += `</ul>`;
-  }
-
-  if (w.yasNote) {
-    html += `<div class="yas-note"><strong>Recado da Yas</strong>${w.yasNote}</div>`;
-  }
-
-  document.getElementById('modalBody').innerHTML = html;
-  document.getElementById('overlay').classList.add('open');
+        `).join("")}
+      </div>
+    </div>
+  `;
 }
 
-function closeModal(e) {
-  if (!e || e.target === document.getElementById('overlay')) {
-    document.getElementById('overlay').classList.remove('open');
-  }
+function renderExercises(exercises) {
+  if (!hasItems(exercises)) return "";
+
+  return `
+    <div class="resource-section">
+      <h3>${iconMap.exercise} Exercícios</h3>
+      <ul class="exercise-list">
+        ${exercises.map(item => `<li>${item}</li>`).join("")}
+      </ul>
+    </div>
+  `;
 }
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
+function renderAudios(audios) {
+  if (!hasItems(audios)) return "";
+
+  return `
+    <div class="resource-section">
+      <h3>${iconMap.audio} Áudios</h3>
+      <div class="resource-list">
+        ${audios.map(audio => `
+          <div class="resource-item">
+            <span>${audio.label}</span>
+            ${
+              audio.url
+                ? `<audio controls preload="none"><source src="${audio.url}"></audio>`
+                : `<span>Ouvir no WhatsApp</span>`
+            }
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderLinks(links) {
+  if (!hasItems(links)) return "";
+
+  return `
+    <div class="resource-section">
+      <h3>${iconMap.link} Links</h3>
+      <div class="resource-list">
+        ${links.map(link => `
+          <div class="resource-item">
+            <span>${link.label}</span>
+            <a href="${link.url}" target="_blank">Abrir link ↗</a>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderVideos(videos) {
+  if (!hasItems(videos)) {
+    return `
+      <div class="resource-section">
+        <h3>${iconMap.video} Vídeos</h3>
+        <p style="font-size:.9rem;color:#756A78;">Nenhum vídeo disponível nesta semana.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="resource-section">
+      <h3>${iconMap.video} Vídeos</h3>
+      <div class="resource-list">
+        ${videos.map(video => `
+          <div class="resource-item">
+            <span>${video.label}</span>
+            <a href="${video.url}" target="_blank">Assistir ↗</a>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+}
+
+document.getElementById("overlay").addEventListener("click", function(event) {
+  if (event.target === this) closeModal();
 });
 
-function togglePdf(id, url) {
-  const wrap = document.getElementById(id);
-  const isOpen = wrap.classList.contains('open');
-  // close all others first
-  document.querySelectorAll('.pdf-viewer-wrap.open').forEach(el => {
-    el.classList.remove('open');
-    el.querySelector('iframe').src = '';
-  });
-  if (!isOpen) {
-    const iframe = wrap.querySelector('iframe');
-    if (!iframe.src || iframe.src === window.location.href) {
-      iframe.src = iframe.dataset.src;
-    }
-    wrap.classList.add('open');
-  }
-}
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") closeModal();
+});
 
 renderGrid();
