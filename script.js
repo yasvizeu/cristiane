@@ -274,4 +274,18 @@ document.addEventListener("keydown", function(event) {
   if (event.key === "Escape") closeModal();
 });
 
+let startY = 0;
+
+document.querySelector('.modal').addEventListener('touchstart', e => {
+  startY = e.touches[0].clientY;
+});
+
+document.querySelector('.modal').addEventListener('touchmove', e => {
+  const currentY = e.touches[0].clientY;
+
+  if (currentY - startY > 120) {
+    closeModal();
+  }
+});
+
 renderGrid();
