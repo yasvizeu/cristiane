@@ -23,7 +23,7 @@ const WEEKS = [
 
     // ✏️ ADICIONE EXERCÍCIOS AQUI
     exercises: [
-      "Pratique os exercícios do PDF abaixo",
+      "Leia o resumo do PDF abaixo",
       "Escreva 3 frases apresentando você em inglês no seu caderno"
     ],
 
@@ -31,7 +31,7 @@ const WEEKS = [
     // Com arquivo:   { label: "Nome", url: "audio.mp3" }
     // Pelo WhatsApp: { label: "Nome — enviado pelo WhatsApp", url: "" }
     audios: [
-      { label: "Pronúncia de 'th' — enviado pelo WhatsApp", url: "" }
+      { label: "Pronúncia de 'th'", url: "" }
     ],
 
     // ✏️ ADICIONE LINKS AQUI
