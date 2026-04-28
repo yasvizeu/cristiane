@@ -235,11 +235,11 @@ main {
   font-size: .88rem;
 }
 
-.pdf { background: #F1E8FF; color: #5A2D91; }
-.audio { background: #FFF1E0; color: #B16522; }
+.pdf      { background: #F1E8FF; color: #5A2D91; }
+.audio    { background: #FFF1E0; color: #B16522; }
 .exercise { background: #EAF0FF; color: #283E7A; }
-.link { background: #EAF7F1; color: #2D7158; }
-.video { background: #FDEBEB; color: #9D2828; }
+.link     { background: #EAF7F1; color: #2D7158; }
+.video    { background: #FDEBEB; color: #9D2828; }
 
 .open-week {
   border-top: 1px solid var(--line);
@@ -315,6 +315,10 @@ main {
   font-weight: 600;
 }
 
+.modal-side .small-line {
+  margin-top: 20px;
+}
+
 .focus-box {
   margin-top: 70px;
 }
@@ -342,6 +346,7 @@ main {
 .modal-content {
   padding: 56px 44px 46px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .resource-section {
@@ -404,12 +409,19 @@ main {
   font-size: .9rem;
 }
 
-/* RESPONSIVE */
-
-.modal-content {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+/* audio player */
+.resource-item audio {
+  width: 100%;
+  height: 36px;
+  accent-color: #5A2D91;
 }
+
+.resource-item.audio-item {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* RESPONSIVE */
 
 @media (max-width: 760px) {
   .hero {
