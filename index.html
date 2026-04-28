@@ -4,70 +4,59 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>YV English · Cristiane</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-top">
-    <!-- ✏️ TROQUE A LOGO AQUI -->
-    <img src="logo-yv.png" alt="YV English" class="logo-img">
+  <header class="hero">
+    <div class="hero-inner">
+      <nav class="hero-nav">
+        <img src="https://www.yvenglish.com/assets/logo.png" alt="YV English" class="logo">
+        <div class="student-badge">
+          <span class="badge-dot"></span>
+          <span>Cristiane</span>
+        </div>
+      </nav>
+      <div class="hero-body">
+        <p class="eyebrow">Sua área pessoal</p>
+        <h1>Hello,<br><em>Cristiane</em> ✦</h1>
+        <p class="hero-sub">Seus materiais da semana — PDFs, áudios e atividades organizados só para você.</p>
+      </div>
+      <div class="hero-deco" aria-hidden="true">
+        <span class="deco-word">YV</span>
+        <span class="deco-line"></span>
+      </div>
+    </div>
+  </header>
 
-    <div class="student-pill">
-      <span class="student-icon">♡</span>
-      Cristiane
+  <main>
+    <div class="section-label">
+      <span class="label-line"></span>
+      <p>Semanas</p>
+      <span class="label-line"></span>
+    </div>
+    <section class="weeks-grid" id="weeksGrid"></section>
+  </main>
+
+  <div class="overlay" id="overlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal()" aria-label="Fechar">&#x2715;</button>
+      <aside class="modal-aside">
+        <p class="aside-week" id="modalWeekLabel"></p>
+        <h2 class="aside-title" id="modalTitle"></h2>
+        <span class="aside-rule"></span>
+        <div class="aside-focus">
+          <strong>Foco da semana</strong>
+          <p id="modalFocus"></p>
+        </div>
+        <span class="aside-heart">&#x2665;</span>
+      </aside>
+      <section class="modal-body" id="modalBody"></section>
     </div>
   </div>
 
-  <div class="hero-content">
-    <p class="eyebrow">Sua área pessoal</p>
-    <h1>Hello, Cristiane ✨</h1>
-    <p>
-      Aqui você encontra seus materiais da semana:<br>
-      PDFs, áudios e atividades para praticar antes da aula.
-    </p>
-    <span class="small-line"></span>
-  </div>
-
-  <div class="hero-watermark">YV</div>
-  <div class="hero-curve"></div>
-</header>
-
-<main>
-  <div class="section-title">
-    <span></span>
-    <p>Semanas</p>
-    <span></span>
-  </div>
-
-  <section class="weeks-grid" id="weeksGrid"></section>
-</main>
-
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-
-    <aside class="modal-side">
-      <p id="modalWeekLabel"></p>
-      <h2 id="modalTitle"></h2>
-      <span class="small-line"></span>
-
-      <div class="focus-box">
-        <strong>Foco da semana</strong>
-        <p id="modalFocus"></p>
-      </div>
-
-      <span class="heart">♡</span>
-    </aside>
-
-    <section class="modal-content" id="modalBody"></section>
-  </div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

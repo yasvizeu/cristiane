@@ -2,44 +2,31 @@
 // ✏️ EDITE AQUI — DADOS DA ALUNA
 // ============================================================
 
-const STUDENT_NAME = "Cristiane";
-
-// ============================================================
-// ✏️ EDITE AQUI — SEMANAS DA ALUNA
-// Para adicionar uma semana nova, copie um bloco inteiro { ... }
-// e cole depois da última semana, separando com vírgula.
-// ============================================================
-
 const WEEKS = [
   {
     number: 1,
     title: "To Be",
     focus: "Aprender a estrutura de frases de ser/estar na afirmativa. Não se preocupe com perfeição — ouse falar!",
 
-    // ✏️ ADICIONE PDFS AQUI
     pdfs: [
-      { label: "To Be – Semana 1", url: "semana1.pdf" }
+      { label: "To Be – Semana 1", url: "pdfs/semana1.pdf" }
     ],
 
-    // ✏️ ADICIONE EXERCÍCIOS AQUI
     exercises: [
       "Pratique os exercícios do PDF abaixo",
       "Escreva 3 frases apresentando você em inglês no seu caderno"
     ],
 
-    // ✏️ ADICIONE ÁUDIOS AQUI
-    // Com arquivo:   { label: "Nome", url: "audio.mp3" }
+    // Com arquivo:   { label: "Nome", url: "audios/arquivo.mp3" }
     // Pelo WhatsApp: { label: "Nome — enviado pelo WhatsApp", url: "" }
     audios: [
       { label: "Pronúncia de 'th' — enviado pelo WhatsApp", url: "" }
     ],
 
-    // ✏️ ADICIONE LINKS AQUI
     links: [
       { label: "BBC Learning English – greetings", url: "https://www.bbc.co.uk/learningenglish" }
     ],
 
-    // ✏️ ADICIONE VÍDEOS AQUI
     videos: []
   },
 
@@ -48,9 +35,7 @@ const WEEKS = [
     title: "Daily Routines",
     focus: "Praticar frases simples sobre rotina e começar a falar pequenas informações do dia a dia.",
 
-    pdfs: [
-      // { label: "Daily Routines – Semana 2", url: "semana2.pdf" }
-    ],
+    pdfs: [],
 
     exercises: [
       "Complete os exercícios da Semana 2 no caderno",
@@ -62,30 +47,22 @@ const WEEKS = [
     ],
 
     links: [],
-
     videos: []
   }
 
   // ============================================================
-  // ✏️ PARA ADICIONAR UMA NOVA SEMANA:
-  // Copie o modelo abaixo, cole antes do fechamento do array (])
-  // e adicione uma vírgula depois da semana anterior.
+  // ✏️ PARA ADICIONAR UMA NOVA SEMANA, copie e cole este modelo
+  // antes do ] acima, com vírgula depois da semana anterior:
   //
-  // ,
-  // {
+  // ,{
   //   number: 3,
   //   title: "Family",
-  //   focus: "Praticar vocabulário de família e frases com he/she/they.",
-  //   pdfs: [
-  //     { label: "Family – Semana 3", url: "semana3.pdf" }
-  //   ],
-  //   exercises: [
-  //     "Traduza as frases do PDF",
-  //     "Grave 3 frases falando sobre sua família"
-  //   ],
-  //   audios: [],
-  //   links: [],
-  //   videos: []
+  //   focus: "Vocabulário de família e frases com he/she/they.",
+  //   pdfs:      [{ label: "Family – Semana 3", url: "pdfs/semana3.pdf" }],
+  //   exercises: ["Faça os exercícios do PDF", "Grave 3 frases sobre sua família"],
+  //   audios:    [],
+  //   links:     [],
+  //   videos:    []
   // }
   // ============================================================
 ];
@@ -94,182 +71,170 @@ const WEEKS = [
 // ⬇️ A PARTIR DAQUI NÃO PRECISA MEXER
 // ============================================================
 
-const iconMap = {
-  pdf:      "▣",
-  audio:    "◖",
-  exercise: "✎",
-  link:     "⌁",
-  video:    "▷"
-};
-
-function hasItems(arr) {
-  return Array.isArray(arr) && arr.filter(i => i && (i.label || typeof i === "string")).length > 0;
+function hasContent(arr) {
+  return Array.isArray(arr) && arr.filter(i => i && i.label).length > 0;
 }
 
 function renderGrid() {
   const grid = document.getElementById("weeksGrid");
-
-  grid.innerHTML = WEEKS.map((week, index) => {
+  grid.innerHTML = WEEKS.map((w, i) => {
     const icons = [
-      hasItems(week.pdfs)      ? `<span class="resource-icon pdf">${iconMap.pdf}</span>`           : "",
-      hasItems(week.audios)    ? `<span class="resource-icon audio">${iconMap.audio}</span>`         : "",
-      hasItems(week.exercises) ? `<span class="resource-icon exercise">${iconMap.exercise}</span>`   : "",
-      hasItems(week.links)     ? `<span class="resource-icon link">${iconMap.link}</span>`           : "",
-      hasItems(week.videos)    ? `<span class="resource-icon video">${iconMap.video}</span>`         : "",
-    ].join("");
+      hasContent(w.pdfs)      ? '<span class="ricon ricon-pdf"  title="PDF">P</span>'  : '',
+      hasContent(w.audios)    ? '<span class="ricon ricon-audio" title="Áudio">A</span>' : '',
+      hasContent(w.exercises) ? '<span class="ricon ricon-exercise" title="Exercícios">E</span>' : '',
+      hasContent(w.links)     ? '<span class="ricon ricon-link"  title="Links">L</span>' : '',
+      hasContent(w.videos)    ? '<span class="ricon ricon-video" title="Vídeos">V</span>' : '',
+    ].join('');
 
     return `
-      <article class="week-card" onclick="openModal(${index})">
-        <div class="week-head">
-          <p class="week-number">Semana ${week.number}</p>
-          <h2 class="week-title">${week.title}</h2>
+      <article class="week-card" onclick="openModal(${i})" tabindex="0"
+               onkeydown="if(event.key==='Enter')openModal(${i})">
+        <div class="card-head">
+          <p class="card-number">Semana ${w.number}</p>
+          <h2 class="card-title">${w.title}</h2>
         </div>
-        <div class="week-body">
-          <div class="icon-row">${icons}</div>
-          <p class="open-week">Abrir semana →</p>
+        <div class="card-body">
+          <div class="card-icons">${icons}</div>
+          <div class="card-cta">
+            <span>Ver material</span>
+            <span class="card-cta-arrow">→</span>
+          </div>
         </div>
       </article>`;
-  }).join("");
+  }).join('');
 }
 
 function openModal(index) {
-  const week = WEEKS[index];
-
-  document.getElementById("modalWeekLabel").textContent = `Semana ${week.number}`;
-  document.getElementById("modalTitle").textContent     = week.title;
-  document.getElementById("modalFocus").textContent     = week.focus;
+  const w = WEEKS[index];
+  document.getElementById("modalWeekLabel").textContent = `Semana ${w.number}`;
+  document.getElementById("modalTitle").textContent     = w.title;
+  document.getElementById("modalFocus").textContent     = w.focus || '';
 
   document.getElementById("modalBody").innerHTML = [
-    renderPdfs(week.pdfs),
-    renderExercises(week.exercises),
-    renderAudios(week.audios),
-    renderLinks(week.links),
-    renderVideos(week.videos),
-    `<div class="yas-tip">✨ <strong>Dica da YV:</strong> Pratique todos os dias um pouco. Consistência é o que te leva à fluência.</div>`
-  ].join("");
+    renderPdfs(w.pdfs),
+    renderExercises(w.exercises),
+    renderAudios(w.audios),
+    renderLinks(w.links),
+    renderVideos(w.videos),
+    `<div class="yas-tip"><strong>Dica da YV</strong>Pratique todos os dias um pouco. Consistência é o que te leva à fluência. ✦</div>`
+  ].join('');
 
   document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow = '';
 }
 
 function renderPdfs(pdfs) {
   const items = (pdfs || []).filter(p => p.label);
-  if (!items.length) return "";
-
+  if (!items.length) return '';
   return `
     <div class="resource-section">
-      <h3>${iconMap.pdf} PDFs</h3>
-      <div class="resource-list">
-        ${items.map(pdf => `
-          <div class="resource-item">
-            <span>${pdf.label}</span>
-            <div style="display:flex;gap:8px;flex-shrink:0">
-              <a href="${pdf.url}" target="_blank">Abrir ↗</a>
-              <a href="${pdf.url}" download class="download-btn">Baixar</a>
+      <h3 class="res-title">PDFs</h3>
+      <div class="res-list">
+        ${items.map(p => `
+          <div class="res-item">
+            <span class="res-item-label">${p.label}</span>
+            <div class="res-actions">
+              <a href="${p.url}" target="_blank" class="btn-open">Abrir ↗</a>
+              <a href="${p.url}" download class="btn-download">Baixar</a>
             </div>
-          </div>`).join("")}
+          </div>`).join('')}
       </div>
     </div>`;
 }
 
 function renderExercises(exercises) {
   const items = (exercises || []).filter(Boolean);
-  if (!items.length) return "";
-
+  if (!items.length) return '';
   return `
     <div class="resource-section">
-      <h3>${iconMap.exercise} Exercícios</h3>
+      <h3 class="res-title">Exercícios</h3>
       <ul class="exercise-list">
-        ${items.map(item => `<li>${item}</li>`).join("")}
+        ${items.map(e => `<li>${e}</li>`).join('')}
       </ul>
     </div>`;
 }
 
 function renderAudios(audios) {
   const items = (audios || []).filter(a => a.label);
-  if (!items.length) return "";
-
+  if (!items.length) return '';
   return `
     <div class="resource-section">
-      <h3>${iconMap.audio} Áudios</h3>
-      <div class="resource-list">
-        ${items.map(audio => {
-          if (audio.url) {
-            return `
-              <div class="resource-item audio-item">
-                <span style="font-weight:500">${audio.label}</span>
-                <audio controls preload="none" style="width:100%;accent-color:#5A2D91">
-                  <source src="${audio.url}">
-                </audio>
-              </div>`;
-          }
-          return `
-            <div class="resource-item">
-              <span>${audio.label}</span>
-              <span style="color:var(--muted);font-size:.85rem">via WhatsApp</span>
-            </div>`;
-        }).join("")}
+      <h3 class="res-title">Áudios</h3>
+      <div class="res-list">
+        ${items.map(a => a.url
+          ? `<div class="res-item audio-item">
+               <span class="res-item-label">${a.label}</span>
+               <audio controls preload="none"><source src="${a.url}"></audio>
+             </div>`
+          : `<div class="res-item">
+               <span class="res-item-label">${a.label}</span>
+               <span class="via-whatsapp">via WhatsApp</span>
+             </div>`
+        ).join('')}
       </div>
     </div>`;
 }
 
 function renderLinks(links) {
   const items = (links || []).filter(l => l.label);
-  if (!items.length) return "";
-
+  if (!items.length) return '';
   return `
     <div class="resource-section">
-      <h3>${iconMap.link} Links</h3>
-      <div class="resource-list">
-        ${items.map(link => `
-          <div class="resource-item">
-            <span>${link.label}</span>
-            <a href="${link.url}" target="_blank">Abrir ↗</a>
-          </div>`).join("")}
+      <h3 class="res-title">Links</h3>
+      <div class="res-list">
+        ${items.map(l => `
+          <div class="res-item">
+            <span class="res-item-label">${l.label}</span>
+            <div class="res-actions">
+              <a href="${l.url}" target="_blank" class="btn-open">Abrir ↗</a>
+            </div>
+          </div>`).join('')}
       </div>
     </div>`;
 }
 
 function renderVideos(videos) {
   const items = (videos || []).filter(v => v.label);
-
-  if (!items.length) return `
-    <div class="resource-section">
-      <h3>${iconMap.video} Vídeos</h3>
-      <p style="font-size:.9rem;color:var(--muted)">Nenhum vídeo disponível nesta semana.</p>
-    </div>`;
-
+  if (!items.length) return '';
   return `
     <div class="resource-section">
-      <h3>${iconMap.video} Vídeos</h3>
-      <div class="resource-list">
-        ${items.map(video => `
-          <div class="resource-item">
-            <span>${video.label}</span>
-            <a href="${video.url}" target="_blank">Assistir ↗</a>
-          </div>`).join("")}
+      <h3 class="res-title">Vídeos</h3>
+      <div class="res-list">
+        ${items.map(v => `
+          <div class="res-item">
+            <span class="res-item-label">${v.label}</span>
+            <div class="res-actions">
+              <a href="${v.url}" target="_blank" class="btn-open">Assistir ↗</a>
+            </div>
+          </div>`).join('')}
       </div>
     </div>`;
 }
 
-function closeModal() {
-  document.getElementById("overlay").classList.remove("open");
-}
-
+// Fechar clicando fora
 document.getElementById("overlay").addEventListener("click", function(e) {
   if (e.target === this) closeModal();
 });
 
-document.addEventListener("keydown", function(e) {
+// Fechar com Esc
+document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeModal();
 });
 
-// Swipe para fechar no mobile
-let startY = 0;
-document.querySelector(".modal").addEventListener("touchstart", e => {
-  startY = e.touches[0].clientY;
-});
-document.querySelector(".modal").addEventListener("touchmove", e => {
-  if (e.touches[0].clientY - startY > 120) closeModal();
-});
+// Swipe down para fechar no mobile
+let touchStartY = 0;
+document.querySelector(".modal") && document.addEventListener("touchstart", e => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener("touchmove", e => {
+  if (document.getElementById("overlay").classList.contains("open")) {
+    if (e.touches[0].clientY - touchStartY > 100) closeModal();
+  }
+}, { passive: true });
 
 renderGrid();
