@@ -69,10 +69,10 @@ body {
 }
 
 .logo {
-  width: 100px;
+  width: 110px;
   height: auto;
-  filter: brightness(0) invert(1);
-  opacity: .92;
+  filter: drop-shadow(0 0 12px rgba(240,200,122,.25)) brightness(1.1);
+  opacity: 1;
 }
 
 .student-badge {

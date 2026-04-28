@@ -9,7 +9,7 @@ const WEEKS = [
     focus: "Aprender a estrutura de frases de ser/estar na afirmativa. Não se preocupe com perfeição — ouse falar!",
 
     pdfs: [
-      { label: "To Be – Semana 1", url: "pdfs/semana1.pdf" }
+      { label: "To Be – Semana 1", url: "https://drive.google.com/file/d/1Sy2vF5MsjdcpRLBHGqVCNOPtS8N5dBYf/view?usp=sharing" }
     ],
 
     exercises: [
