@@ -23,7 +23,7 @@ const WEEKS = [
 
     // ✏️ ADICIONE EXERCÍCIOS AQUI
     exercises: [
-      "Leia o resumo do PDF abaixo",
+      "Pratique os exercícios do PDF abaixo",
       "Escreva 3 frases apresentando você em inglês no seu caderno"
     ],
 
@@ -31,7 +31,7 @@ const WEEKS = [
     // Com arquivo:   { label: "Nome", url: "audio.mp3" }
     // Pelo WhatsApp: { label: "Nome — enviado pelo WhatsApp", url: "" }
     audios: [
-      { label: "Pronúncia de 'th'", url: "" }
+      { label: "Pronúncia de 'th' — enviado pelo WhatsApp", url: "" }
     ],
 
     // ✏️ ADICIONE LINKS AQUI
@@ -163,7 +163,7 @@ function renderPdfs(pdfs) {
           <div class="resource-item">
             <span>${pdf.label}</span>
             <div style="display:flex;gap:8px;flex-shrink:0">
-              <a href="${pdf.url}" target="_blank">Visualizar</a>
+              <a href="${pdf.url}" target="_blank">Abrir ↗</a>
               <a href="${pdf.url}" download class="download-btn">Baixar</a>
             </div>
           </div>`).join("")}
