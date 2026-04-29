@@ -27,7 +27,18 @@ const WEEKS = [
       { label: "BBC Learning English – greetings", url: "https://www.bbc.co.uk/learningenglish" }
     ],
 
-    videos: []
+    videos: [],
+
+    // ✏️ ADICIONE VOCABULÁRIO AQUI
+    // { word: "palavra em inglês", translation: "tradução em português" }
+    vocabulary: [
+      { word: "to be", translation: "ser / estar" },
+      { word: "I am", translation: "eu sou / estou" },
+      { word: "you are", translation: "você é / está" },
+      { word: "she is", translation: "ela é / está" },
+      { word: "we are", translation: "nós somos / estamos" },
+      { word: "they are", translation: "eles são / estão" },
+    ]
   },
 
   {
@@ -47,7 +58,14 @@ const WEEKS = [
     ],
 
     links: [],
-    videos: []
+    videos: [],
+
+    vocabulary: [
+      { word: "wake up", translation: "acordar" },
+      { word: "daily routine", translation: "rotina diária" },
+      { word: "in the morning", translation: "de manhã" },
+      { word: "at night", translation: "à noite" },
+    ]
   }
 
   // ============================================================
@@ -62,7 +80,10 @@ const WEEKS = [
   //   exercises: ["Faça os exercícios do PDF", "Grave 3 frases sobre sua família"],
   //   audios:    [],
   //   links:     [],
-  //   videos:    []
+  //   videos:    [],
+  //   vocabulary: [
+  //     { word: "palavra", translation: "tradução" },
+  //   ]
   // }
   // ============================================================
 ];
@@ -116,11 +137,35 @@ function openModal(index) {
     renderAudios(w.audios),
     renderLinks(w.links),
     renderVideos(w.videos),
+    renderVocabulary(w.vocabulary),
     `<div class="yas-tip"><strong>Dica da YV</strong>Pratique todos os dias um pouco. Consistência é o que te leva à fluência. ✦</div>`
   ].join('');
 
   document.getElementById("overlay").classList.add("open");
   document.body.style.overflow = 'hidden';
+}
+
+
+function renderVocabulary(vocabulary) {
+  const items = (vocabulary || []).filter(v => v.word);
+  if (!items.length) return '';
+  return `
+    <div class="resource-section">
+      <h3 class="res-title">Vocabulário</h3>
+      <div class="vocab-grid">
+        ${items.map((v, i) => `
+          <div class="vocab-card" onclick="this.classList.toggle('flipped')" tabindex="0"
+               onkeydown="if(event.key==='Enter')this.classList.toggle('flipped')">
+            <div class="vocab-front">
+              <span class="vocab-word">${v.word}</span>
+              <span class="vocab-hint">toque para ver</span>
+            </div>
+            <div class="vocab-back">
+              <span class="vocab-translation">${v.translation}</span>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
 }
 
 function closeModal() {
@@ -238,3 +283,28 @@ document.addEventListener("touchmove", e => {
 }, { passive: true });
 
 renderGrid();
+renderGlossary();
+
+function renderGlossary() {
+  const section = document.getElementById("glossarySection");
+  if (!section) return;
+
+  const all = [];
+  WEEKS.forEach(w => {
+    (w.vocabulary || []).filter(v => v.word).forEach(v => {
+      all.push({ ...v, week: w.number, weekTitle: w.title });
+    });
+  });
+
+  if (!all.length) {
+    section.innerHTML = '<p class="glossary-empty">O glossário vai aparecer aqui conforme as semanas forem avançando. ✦</p>';
+    return;
+  }
+
+  section.innerHTML = all.map(v => `
+    <div class="glossary-row">
+      <span class="glos-word">${v.word}</span>
+      <span class="glos-trans">${v.translation}</span>
+      <span class="glos-week-badge">Sem. ${v.week}</span>
+    </div>`).join('');
+}
