@@ -9,15 +9,14 @@
   <link rel="icon" href="https://www.yvenglish.com/assets/logo.png" type="image/png">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
+<body data-plan="Foundation">
   <header class="hero">
     <div class="hero-inner">
       <nav class="hero-nav">
         <img src="https://www.yvenglish.com/assets/logo.png" alt="YV English" class="logo">
         <div class="student-badge">
           <span class="badge-dot"></span>
-          <span>Cristiane</span>
+          <span>Foundation</span>
         </div>
       </nav>
       <div class="hero-body">
@@ -31,22 +30,40 @@
       </div>
     </div>
   </header>
-
   <main>
+    <div class="daily-btn-wrap">
+      <button class="daily-btn" onclick="openDaily()">
+        <div class="daily-btn-left">
+          <span class="daily-tag">Daily Content</span>
+          <p class="daily-btn-title">Texto e exercícios de hoje</p>
+          <p class="daily-btn-sub">Exclusivo para alunas Fluency · Atualizado pela Yas</p>
+        </div>
+        <div class="daily-btn-right">
+          <span class="daily-pin">📌</span>
+          <span class="daily-btn-cta">Acessar →</span>
+        </div>
+      </button>
+    </div>
     <div class="section-label">
       <span class="label-line"></span>
       <p>Semanas</p>
       <span class="label-line"></span>
     </div>
     <section class="weeks-grid" id="weeksGrid"></section>
-
-    <div class="section-label" style="margin-top: 56px;">
-      <span class="label-line"></span>
-      <p>Glossário</p>
-      <span class="label-line"></span>
+    <div class="glossary-btn-wrap">
+      <button class="glossary-btn" onclick="toggleGlossary()">
+        <div class="glossary-btn-left">
+          <span class="glossary-tag">Glossário</span>
+          <p class="glossary-btn-title">Todas as palavras das aulas</p>
+          <p class="glossary-btn-sub">Vocabulário acumulado com pronúncia</p>
+        </div>
+        <div class="glossary-btn-right">
+          <span class="glossary-icon">📖</span>
+          <span class="glossary-btn-cta" id="glossaryBtnCta">Ver palavras →</span>
+        </div>
+      </button>
     </div>
-    <section class="glossary-section" id="glossarySection"></section>
-
+    <section class="glossary-section" id="glossarySection" style="display:none; margin-top: 16px;"></section>
   </main>
 
   <div class="overlay" id="overlay">
@@ -64,6 +81,34 @@
       </aside>
       <section class="modal-body" id="modalBody"></section>
     </div>
+  </div>
+
+  <div class="overlay" id="dailyOverlay">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeDaily()" aria-label="Fechar">&#x2715;</button>
+      <aside class="modal-aside daily-aside">
+        <p class="aside-week">Daily Content</p>
+        <h2 class="aside-title" id="dailyDate"></h2>
+        <span class="aside-rule"></span>
+        <div class="aside-focus">
+          <strong>Fluency</strong>
+          <p>Texto e exercícios exclusivos atualizados pela Yas.</p>
+        </div>
+        <span class="aside-heart">&#x2665;</span>
+      </aside>
+      <section class="modal-body" id="dailyBody"></section>
+    </div>
+  </div>
+
+  <div class="floating-btns">
+    <a class="float-btn float-wa"
+       href="https://wa.me/5521965126480?text=Oi%20Yas%2C%20tenho%20uma%20d%C3%BAvida!"
+       target="_blank" title="Falar com a Yas">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.057 23.428a.5.5 0 0 0 .609.61l5.647-1.462A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.668-.523-5.188-1.435l-.372-.22-3.853.998 1.028-3.758-.242-.386A9.961 9.961 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    </a>
+    <button class="float-btn float-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
   </div>
 
   <script src="script.js"></script>
